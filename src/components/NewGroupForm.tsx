@@ -1,5 +1,6 @@
 import { Form, LabeledTextField, Card, InputWithSubmitButton } from '@everybody-gives/ui';
 import { useState } from 'react';
+import { supabase } from '../../supabase';
 
 export const NewGroupForm = () => {
 	const [groupName, setGroupName] = useState('')
@@ -10,8 +11,36 @@ export const NewGroupForm = () => {
 		<Form submitError={null}
 			formTitle='New Group'
 			submitText='CREATE'
-			onSubmit={() => { // TODO: create new group and members in supabase
+			onSubmit={async () => {
+				const { data, error: groupError } = await supabase
+					.from('groups')
+					.insert({
+						name: groupName,
+						created_by: yourName,
+					}).select('id').single()
+
+				if (groupError) {
+					console.error(groupError)
+					return
+				}
+
+				if (!data) {
+					console.error('No data returned')
+					return
+				}
+				const { error: membersError } = await supabase
+					.from('members')
+					.insert(members.map((name) => ({ name, selected_by: null, group_id: data.id })))
+
+				if (membersError) {
+					console.log('yey?');
+					console.error(membersError)
+					return
+				}
+
+				window.location.href = `/${data.id}?user=${yourName}`
 			}}>
+
 			<LabeledTextField name="name" label="Group Name" placeholder='my-party-2023' value={groupName} onChange={e => setGroupName(e.target.value)}
 			/>
 			<LabeledTextField name='createdBy' label="your name" placeholder='carla'
@@ -20,9 +49,10 @@ export const NewGroupForm = () => {
 			/>
 			<hr />
 			<h3>Group members</h3>
-			<InputWithSubmitButton 
-			onSubmit={(value) => { 
-			setMembers(prev => [...prev, value])}}
+			<InputWithSubmitButton
+				onSubmit={(value) => {
+					setMembers(prev => [...prev, value])
+				}}
 			/>
 			<ul className='grid grid-cols-2 gap-6 sm:grid-cols-3'>
 				{members.map((memberName, personIdx) => (
