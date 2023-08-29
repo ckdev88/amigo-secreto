@@ -1,6 +1,6 @@
 import { Form, LabeledTextField, Card, InputWithSubmitButton } from '@everybody-gives/ui';
 import { useState } from 'react';
-import { supabase } from '../../supabase';
+import { supabase } from '../supabase';
 
 export const NewGroupForm = () => {
 	const [groupName, setGroupName] = useState('')

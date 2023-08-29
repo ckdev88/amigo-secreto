@@ -1,0 +1,36 @@
+---
+
+import { Sheet } from "@everybody-gives/ui";
+import { GroupInfo } from "../../components/GroupInfo";
+import Layout from "../../layouts/main.astro";
+
+const { groupId } = Astro.params;
+const userName = Astro.url.searchParams.get("user");
+
+if (!userName) {
+return Astro.redirect(`/${groupId}/name`);//handle missing username
+}
+
+// TODO: festch group info from Supabase
+const group = {
+	id: groupId as string,
+	name: "Group Name",
+	createdBy: "Group creator",
+	members: [{ name: "User 1" }],
+};
+---
+
+<Layout title={group.name}>
+	<Sheet>
+		<GroupInfo
+			client:load
+			group={{
+				createdBy: group.createdBy,
+				name: group.name,
+				id: group.id,
+			}}
+			userName={userName}
+			members={group.members}
+		/>
+	</Sheet>
+</Layout>
