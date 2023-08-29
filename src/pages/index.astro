@@ -1,24 +1,33 @@
 ---
 // Component Imports
-import Button from '../components/Button.astro';
+import { Button, Hero } from "@everybody-gives/ui";
+import Layout from "../layouts/main.astro";
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
-
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
+<Layout title="everybody.gives">
+	<main
+		class="min-h-full flex items-center flex-col justify-cente p-[100px]"
+	>
+		<h1
+			class="text-4xl font-extrabold tracking-tight sm:text-6xl flex flex-col"
+		>
+			<span
+				style="text-transform:uppercase;text-shadow:-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000"
+				class="block text-background xl:inline"
+				>Kadootje</span
+			><span
+				style="text-transform:uppercase;text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000"
+				class="block xl:inline md:whitespace-nowrap"
+				>Voor Katootje</span
+			>
+		</h1>
+		<div class="mt-5 sm:mt-8 flex self-start">
+			<a href="/new-group"
+				><Button width={200}>LEGO!~!</Button></a
+			>
 		</div>
-	</body>
-</html>
+	</main>
+</Layout>
