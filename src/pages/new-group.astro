@@ -1,0 +1,11 @@
+---
+import { Sheet } from "@everybody-gives/ui";
+import { NewGroupForm } from "../components/NewGroupForm";
+import Layout from "../layouts/main.astro";
+---
+
+<Layout title="everybody.gives">
+	<Sheet>
+		<NewGroupForm client:load />
+	</Sheet>
+</Layout>
