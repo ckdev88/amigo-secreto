@@ -9,7 +9,7 @@ export const NewGroupForm = () => {
 
 	return (
 		<Form submitError={null}
-			formTitle='New Group'
+			formTitle='Amigo Secreto'
 			submitText='CREATE'
 			onSubmit={async () => {
 				const { data, error: groupError } = await supabase
@@ -48,7 +48,7 @@ export const NewGroupForm = () => {
 				onChange={e => setYourName(e.target.value)}
 			/>
 			<hr />
-			<h3>Group members</h3>
+			<h3 className='uppercase text-2xl font-bold'>Group members</h3>
 			<InputWithSubmitButton
 				onSubmit={(value) => {
 					setMembers(prev => [...prev, value])
@@ -60,7 +60,7 @@ export const NewGroupForm = () => {
 						className='bg-background'
 						key={personIdx}
 						title={memberName}
-						onDelete={() => { setMembers(prev => prev.filter(m => m === memberName)) }}
+						onDelete={() => { setMembers(prev => prev.filter(m => m !== memberName)) }}
 					/>
 				))}
 			</ul>

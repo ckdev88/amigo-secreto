@@ -4,15 +4,15 @@ import Layout from "../../layouts/main.astro";
 import { supabase } from "../../supabase";
 const { groupId } = Astro.params;
 const { data, error } = await supabase
-.from("members")
-.select("name")
-.eq("group_id", groupId);
+	.from("members")
+	.select("name")
+	.eq("group_id", groupId);
 
 if (error) {
-console.error(error);
-throw error;
+	console.error(error);
+	throw error;
 }
-const members = data.map((m)=>m.name); // retrieve members from supabase
+const members = data.map((m) => m.name); // retrieve members from supabase
 ---
 
 <Layout title="Select name">
@@ -20,12 +20,15 @@ const members = data.map((m)=>m.name); // retrieve members from supabase
 		<h1 class="text-center text-5xl">Select your name</h1>
 		<ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 pt-8">
 			{
-			members?.map((member) => {
-			return (
-			<Card href={`/${groupId}?user=${member}`} title={member}
-				className="bg-background hover:scale-105" />
-			);
-			})
+				members?.map((member) => {
+					return (
+						<Card
+							href={`/${groupId}?user=${member}`}
+							title={member}
+							className="bg-background hover:scale-105"
+						/>
+					);
+				})
 			}
 		</ul>
 	</Sheet>

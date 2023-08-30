@@ -1,29 +1,33 @@
 import { useState } from 'react'
-import {Button, Card} from '@everybody-gives/ui'
-
-type GroupInfoProps={
-group:{name:string,createdBy:string, id:string}
-	members:{name:string}[]
-	userName:string
+import { Button, Card } from '@everybody-gives/ui'
+type GroupInfoProps = {
+  group: { name: string, createdBy: string, id: string }
+  members: { name: string }[]
+  userName: string
 }
+import { supabase } from '../supabase'
 
-export const GroupInfo = ({group, members, userName}: GroupInfoProps) => {
+export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
   const [result, setResult] = useState<string | undefined>(undefined)
-  
+
   const drawPerson = async () => {
-    // todo: handle draw
-    const result = "Alex"
-    setResult(result)
+    const { data } = await supabase.rpc("draw_name", { groupid: group.id, username: userName }).single()
+    if (!data) {
+      console.error("No data returned")
+      return
+    }
+    console.log(data)
+    setResult(data)
   }
   return (
     <div>
       <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700">
-        Welcome to {group.name}, {userName}!
+        Bem vindo em {group.name}, {userName}!
       </h1>
       <div className="flex justify-start my-6 items-center">
         <Button width={215} onClick={() => {
           void drawPerson()
-        }}>DRAW A NAME</Button>
+        }}>Quem?</Button>
       </div>
       <dl>
         <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-3">
@@ -43,9 +47,7 @@ export const GroupInfo = ({group, members, userName}: GroupInfoProps) => {
         {members.map((member) => {
           let className = " bg-background";
           if (result === member.name) {
-            className = isAnimating
-              ? " animate-[wiggle_1s_ease-in-out_infinite] bg-action"
-              : " bg-action scale-120";
+            className = "bg-action scale-120";
           }
           if (result !== member.name && result) {
             className = " bg-background opacity-50";
