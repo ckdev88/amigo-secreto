@@ -1,24 +1,24 @@
 ---
 import "../styles/index.css";
 interface Props {
-	title: string;
+title: string;
 }
 const { title } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>{title}</title>
-	</head>
 
-	<body>
-		<div class="min-h-full w-full flex z-50">
-			<slot />
-		</div>
-	</body>
-</html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<title>{title}</title>
+</head>
+
+<body>
+	<div class="min-h-full w-full flex z-50">
+		<slot />
+	</div>
+</body>
 
 </html>

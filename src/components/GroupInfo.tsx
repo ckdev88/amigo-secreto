@@ -6,7 +6,6 @@ type GroupInfoProps = {
   userName: string
 }
 import { supabase } from '../supabase'
-
 export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
   const [result, setResult] = useState<string | undefined>(undefined)
 
@@ -16,7 +15,6 @@ export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
       console.error("No data returned")
       return
     }
-    console.log(data)
     setResult(data)
   }
   return (

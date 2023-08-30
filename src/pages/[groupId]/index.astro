@@ -7,22 +7,22 @@ const { groupId } = Astro.params;
 const userName = Astro.url.searchParams.get("user");
 
 if (!userName) {
-return Astro.redirect(`/${groupId}/name`);
+	return Astro.redirect(`/${groupId}/name`);
 }
 
 const { data: group, error } = await supabase
-.from("groups")
-.select("id, name, created_by, members(name)")
-.eq("id", groupId)
-.single();
+	.from("groups")
+	.select("id, name, created_by, members(name)")
+	.eq("id", groupId)
+	.single();
 
 if (error) {
-console.error(error);
-throw error;
+	console.error(error);
+	throw error;
 }
 
 if (!group || !group.members) {
-throw new Error("Invalid group");
+	throw new Error("Invalid group");
 }
 
 const members = Array.isArray(group.members) ? group.members : [group.members];
@@ -30,7 +30,15 @@ const members = Array.isArray(group.members) ? group.members : [group.members];
 
 <Layout title={group.name}>
 	<>
-		<GroupInfo client:load group={{ createdBy: group.created_by, name: group.name, id: group.id, }}
-			userName={userName} members={members} />
+		<GroupInfo
+			client:load
+			group={{
+				createdBy: group.created_by,
+				name: group.name,
+				id: group.id,
+			}}
+			userName={userName}
+			members={members}
+		/>
 	</>
 </Layout>
