@@ -11,7 +11,7 @@ if (!userName) {
 }
 
 const { data: group, error } = await supabase
-	.from("groups")
+	.from("as_groups")
 	.select("id, name, created_by, members(name)")
 	.eq("id", groupId)
 	.single();

@@ -13,7 +13,7 @@ export const NewGroupForm = () => {
 			submitText='CREATE'
 			onSubmit={async () => {
 				const { data, error: groupError } = await supabase
-					.from('groups')
+					.from('as_groups')
 					.insert({
 						name: groupName,
 						created_by: yourName,

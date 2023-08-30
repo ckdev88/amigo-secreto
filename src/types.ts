@@ -9,7 +9,7 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      groups: {
+      as_groups: {
         Row: {
           created_at: string | null
           created_by: string | null
@@ -53,7 +53,7 @@ export interface Database {
           {
             foreignKeyName: "members_group_id_fkey"
             columns: ["group_id"]
-            referencedRelation: "groups"
+            referencedRelation: "as_groups"
             referencedColumns: ["id"]
           }
         ]
@@ -79,4 +79,3 @@ export interface Database {
     }
   }
 }
-
