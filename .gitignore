@@ -22,3 +22,4 @@ pnpm-debug.log*
 
 # home made
 text.txt
+package-lock.json
