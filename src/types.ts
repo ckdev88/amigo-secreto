@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json | undefined }
+  | { [key: string]: Json }
   | Json[]
 
 export interface Database {
@@ -11,52 +11,40 @@ export interface Database {
     Tables: {
       as_groups: {
         Row: {
-          created_at: string | null
-          created_by: string | null
           id: string
           name: string
+          created_by: string
+          created_at: string
         }
         Insert: {
-          created_at?: string | null
-          created_by?: string | null
-          id?: string
-          name: string
-        }
-        Update: {
-          created_at?: string | null
-          created_by?: string | null
           id?: string
           name?: string
+          created_by?: string
+          created_at?: string
         }
-        Relationships: []
+        Update: {
+          id?: string
+          name?: string
+          created_by?: string
+          created_at?: string
+        }
       }
-      members: {
+      as_members: {
         Row: {
-          group_id: string | null
           id: string
           name: string
-          selected_by: string | null
+          selected_by: string
         }
         Insert: {
-          group_id?: string | null
           id?: string
           name: string
-          selected_by?: string | null
+          selected_by: string
         }
         Update: {
-          group_id?: string | null
           id?: string
           name?: string
-          selected_by?: string | null
+          selected_by?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "members_group_id_fkey"
-            columns: ["group_id"]
-            referencedRelation: "as_groups"
-            referencedColumns: ["id"]
-          }
-        ]
       }
     }
     Views: {
@@ -64,17 +52,15 @@ export interface Database {
     }
     Functions: {
       draw_name: {
-        Args: {
-          groupid: string
-          username: string
-        }
+        Args: { groupid: string; username: string }
         Returns: string
+      }
+      install_available_extensions_and_test: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
       }
     }
     Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
       [_ in never]: never
     }
   }
