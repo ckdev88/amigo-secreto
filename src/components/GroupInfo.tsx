@@ -4,7 +4,7 @@ import { supabase } from "../supabase";
 
 type GroupInfoProps = {
 	group: { name: string; createdBy: string; id: string };
-	members: { name: string }[];
+	members: { name: string; id: string }[];
 	userName: string;
 };
 
@@ -51,7 +51,7 @@ export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
 					</dd>
 				</div>
 			</dl>
-			<ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 pt-6">
+			<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 pt-6">
 				{members.map((member) => {
 					let className = " bg-background";
 					if (result === member.name) {
@@ -61,10 +61,10 @@ export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
 						className = " bg-background opacity-50";
 					}
 					return (
-						<Card key={member.name} title={member.name} className={className} />
+						<Card key={member.id} title={member.name} className={className} />
 					);
 				})}
-			</ul>
+			</div>
 		</div>
 	);
 };
