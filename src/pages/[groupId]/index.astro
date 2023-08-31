@@ -13,7 +13,7 @@ if (!userName) {
 const { data: group, error } = await supabase
 	.from("as_groups")
 	.select("id, name, created_by, as_members(name)")
-	.eq("id", groupId)
+	.eq("id", `${groupId}`)
 	.single();
 
 if (error) {
@@ -34,9 +34,12 @@ const members = Array.isArray(group.as_members)
 	<>
 		<GroupInfo
 			client:load
-			group={{ createdBy: group.created_by, name: group.name, id: group.id }}
+			group={{
+				createdBy: group.created_by,
+				name: group.name,
+				id: group.id,
+			}}
 			userName={userName}
 			members={members}
 		/>
-	</>
 </Layout>
