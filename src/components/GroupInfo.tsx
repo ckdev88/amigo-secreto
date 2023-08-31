@@ -1,11 +1,13 @@
-import { useState } from 'react'
-import { Button, Card } from '@everybody-gives/ui'
+import { useState } from "react"
+import { Button, Card } from "@everybody-gives/ui"
+import { supabase } from "../supabase"
+
 type GroupInfoProps = {
-  group: { name: string, createdBy: string, id: string }
-  members: { name: string }[]
+  group: {name: string, createdBy: string, id: string}
+  members: {name: string}[]
   userName: string
 }
-import { supabase } from '../supabase'
+
 export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
   const [result, setResult] = useState<string | undefined>(undefined)
 
