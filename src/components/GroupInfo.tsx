@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card } from "@everybody-gives/ui";
+import { Card } from "@everybody-gives/ui";
 import { supabase } from "../supabase";
 
 type GroupInfoProps = {
@@ -10,8 +10,7 @@ type GroupInfoProps = {
 
 export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
 	const [result, setResult] = useState<string | undefined>(undefined);
-
-	const drawPerson = async () => {
+	const drawPerson = async () => { // NOTE: modified function draw_name in Supabase back-end to prevent picking your own name
 		const { data } = await supabase
 			.rpc("draw_name", { groupid: group.id, username: userName })
 			.single();
@@ -28,14 +27,13 @@ export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
 				Bem vindo em {group.name}, {userName}!
 			</h1>
 			<div className="flex justify-start my-6 items-center">
-				<Button
-					width={215}
+				<button className="rounded-full border-white text-white text-2xl bg-black px-4 py-2 hover:bg-white hover:text-black hover:border-black border-2"
 					onClick={() => {
 						void drawPerson();
 					}}
 				>
 					Quem?
-				</Button>
+				</button>
 			</div>
 			<dl>
 				<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-3">
@@ -61,7 +59,7 @@ export const GroupInfo = ({ group, members, userName }: GroupInfoProps) => {
 						className = " bg-background opacity-50";
 					}
 					return (
-						<Card key={member.id} title={member.name} className={className} />
+						<Card key={member.name} title={member.name} className={className} />
 					);
 				})}
 			</div>
