@@ -3,7 +3,7 @@ import {
 	LabeledTextField,
 	Card,
 	InputWithSubmitButton,
-} from "@everybody-gives/ui";
+} from "@everybody-gives/ui"; // TODO: lokaal trekken, zodat ze aangepast/debugged kunnen worden
 import { useState } from "react";
 import { supabase } from "../supabase";
 
@@ -31,7 +31,7 @@ export const NewGroupForm = () => {
 
 		const { error: creatorError } = await supabase
 			.from("as_members")
-			.insert({ name: yourName, selected_by: null, group_id: data.id });
+			.insert({ name: { yourName }, selected_by: null, group_id: data.id });
 		if (creatorError) {
 			console.error('creatorError: ', creatorError);
 		}
@@ -58,7 +58,6 @@ export const NewGroupForm = () => {
 			formTitle="Amigo Secreto"
 			submitText="VAMOS"
 			onSubmit={submitFormIntoDatabase}
-
 		>
 			<LabeledTextField
 				name="name"
@@ -75,11 +74,10 @@ export const NewGroupForm = () => {
 				onChange={
 					(e) => setYourName(e.target.value)
 				}
-
 			/>
 			<hr />
 			<h3 className="mt-1 text-xl font-black tracking-tight text-gray-700 text-center">
-				Group members
+				Festadors
 			</h3>
 			<InputWithSubmitButton
 				onSubmit={(value) => {
