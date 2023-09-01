@@ -31,7 +31,7 @@ export const NewGroupForm = () => {
 
 		const { error: creatorError } = await supabase
 			.from("as_members")
-			.insert({ name: { yourName }, selected_by: null, group_id: data.id });
+			.insert({ name: yourName, selected_by: null, group_id: data.id });
 		if (creatorError) {
 			console.error('creatorError: ', creatorError);
 		}
